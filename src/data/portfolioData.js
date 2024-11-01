@@ -14,7 +14,7 @@ export const portfolioData = {
   social: {
     github: "https://github.com/abhinv98",
     linkedin: "https://www.linkedin.com/in/abhinav-rai-4351b1160/",
-    website: "https://abhinavrai98.netlify.app/",
+    instagram: "https://www.instagram.com/_abhiray_/",
   },
   // New additions: Skill-related data structures
   skillCategories: [
@@ -326,7 +326,7 @@ export const portfolioData = {
           "Performance optimization",
           "100 sales in 45 days",
         ],
-        liveUrl: "https://cogzart.com",
+        liveUrl: "https://circzles.com",
         githubUrl: null,
         metrics: {
           sales: "100+",
@@ -368,7 +368,7 @@ export const portfolioData = {
           "Automated updates",
           "MongoDB integration",
         ],
-        liveUrl: "https://pricewise-gilt.vercel.app/",
+        liveUrl: "null",
         githubUrl: "https://github.com/abhinv98",
       },
       {
@@ -385,7 +385,7 @@ export const portfolioData = {
           "User feedback",
           "Responsive design",
         ],
-        liveUrl: "https://ai-summarizer-seven.vercel.app/",
+        liveUrl: "null",
         githubUrl: "https://github.com/abhinv98",
         metrics: {
           users: "50+",
@@ -406,7 +406,7 @@ export const portfolioData = {
           "Real-time chat",
           "User management",
         ],
-        liveUrl: "https://inkfusion.vercel.app/",
+        liveUrl: "null",
         githubUrl: "https://github.com/abhinv98",
         metrics: {
           users: "15+",

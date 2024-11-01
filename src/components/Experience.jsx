@@ -66,7 +66,7 @@ const Experience = () => {
     {
       degree: "B.Tech in Computer Engineering",
       institution: "Pillai College of Engineering",
-      duration: "Graduated May 2023",
+      // duration: "Graduated May 2023",
       grade: "CGPA – 7.35",
       location: "Navi Mumbai, MH, India",
       courses: [

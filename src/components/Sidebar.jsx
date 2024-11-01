@@ -7,7 +7,7 @@ import {
   MessageSquare,
   Github,
   Linkedin,
-  Twitter,
+  Instagram,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
@@ -124,7 +124,7 @@ const Sidebar = ({
               {Object.entries({
                 Github: [portfolioData.social.github, Github],
                 LinkedIn: [portfolioData.social.linkedin, Linkedin],
-                Twitter: [portfolioData.social.twitter, Twitter],
+                Instagram: [portfolioData.social.instagram, Instagram],
               }).map(([name, [url, Icon]]) => (
                 <a
                   key={name}
