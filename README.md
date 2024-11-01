@@ -1,8 +1,96 @@
-# Getting Started with Create React App
+# Portfolio Dashboard Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, responsive portfolio dashboard built with React and Tailwind CSS, showcasing projects, skills, and professional experience with interactive visualizations.
 
-## Available Scripts
+![Portfolio Dashboard](public/dashboard-preview.png)
+
+## 🌟 Features
+
+- **Responsive Layout**
+  - Collapsible sidebar navigation
+  - Mobile-friendly design
+  - Smooth transitions
+
+- **Theme Support**
+  - Dark/light mode toggle
+  - Persistent theme preference
+  - Custom color schemes
+
+- **Interactive Components**
+  - Data visualizations using recharts
+  - Force-directed graph for skills
+  - Animated loading states
+  - Project filtering and showcase
+  - Dynamic contact form
+
+- **Advanced Features**
+  - Skills visualization with list and network views
+  - Comprehensive experience timeline
+  - Integrated analytics dashboard
+  - Project metrics and statistics
+
+## 🛠️ Tech Stack
+
+- **Frontend Framework**
+  - React 18.3.1
+  - Create React App
+
+- **Styling**
+  - Tailwind CSS
+  - Custom animations
+  - Responsive design
+
+- **Libraries**
+  - recharts (data visualization)
+  - react-force-graph (network graphs)
+  - lucide-react (icons)
+  - @headlessui/react (UI components)
+
+## 📁 Project Structure
+
+```
+portfolio-dashboard/
+├── public/
+│   └── index.html               # Main HTML file
+├── src/
+│   ├── components/              # React components
+│   │   ├── Contact.jsx         # Contact form component
+│   │   ├── Experience.jsx      # Experience timeline
+│   │   ├── Loading.jsx         # Loading animation
+│   │   ├── OverviewDashboard.jsx # Main dashboard
+│   │   ├── ProjectsGrid.jsx    # Projects showcase
+│   │   ├── Sidebar.jsx         # Navigation
+│   │   ├── SkillsChart.jsx     # Skills display
+│   │   └── ThemeToggle.jsx     # Theme switcher
+│   ├── context/
+│   │   └── ThemeContext.js     # Theme management
+│   ├── data/
+│   │   └── portfolioData.js    # Portfolio content
+│   ├── styles/
+│   │   └── index.css           # Global styles
+│   └── App.jsx                 # Main component
+└── package.json                # Dependencies
+```
+
+## 🚀 Getting Started
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/abhinv98/Portfolio-Dashboard-Project.git
+```
+
+2. **Install dependencies**
+```bash
+cd portfolio-dashboard
+npm install
+```
+
+3. **Start development server**
+```bash
+npm start
+```
+
+## 📜 Available Scripts
 
 In the project directory, you can run:
 
@@ -27,44 +115,47 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
 ### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
 If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🔧 Configuration
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+This project uses several configuration files:
 
-## Learn More
+- `tailwind.config.js` - Tailwind CSS configuration
+- `postcss.config.js` - PostCSS configuration
+- `package.json` - Project dependencies and scripts
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🤝 Contributing
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Contributions are welcome! Here's how you can help:
 
-### Code Splitting
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Please make sure to update tests as appropriate and follow the existing code style.
 
-### Analyzing the Bundle Size
+## 📚 Learn More
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started)
+- [React documentation](https://reactjs.org/)
+- [Tailwind CSS documentation](https://tailwindcss.com/docs)
 
-### Making a Progressive Web App
+## 📝 Additional Documentation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- [Code Splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- [Analyzing Bundle Size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- [Making a Progressive Web App](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- [Advanced Configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- [Deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- [Troubleshooting](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-### Advanced Configuration
+## 📄 License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
