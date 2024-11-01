@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Mail, User, MessageSquare, Send } from "lucide-react";
+import { Mail, User, MessageSquare, Send, AlertCircle } from "lucide-react";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     setFormData({
@@ -21,16 +23,36 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
+    setError(null);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      // Replace these with your actual EmailJS service details
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+        to_name: "Your Name", // Customize this
+        reply_to: formData.email,
+      };
 
-    setIsSubmitting(false);
-    setSubmitStatus("success");
-    setFormData({ name: "", email: "", message: "" });
+      await emailjs.send(
+        "YOUR_SERVICE_ID",
+        "YOUR_TEMPLATE_ID",
+        templateParams,
+        "YOUR_PUBLIC_KEY"
+      );
 
-    // Reset success message after 3 seconds
-    setTimeout(() => setSubmitStatus(null), 3000);
+      setSubmitStatus("success");
+      setFormData({ name: "", email: "", message: "" });
+
+      // Reset success message after 3 seconds
+      setTimeout(() => setSubmitStatus(null), 3000);
+    } catch (err) {
+      setError("Failed to send message. Please try again later.");
+      console.error("Email sending failed:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -114,9 +136,20 @@ const Contact = () => {
         {submitStatus === "success" && (
           <div
             className="bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-green-400 
-                        p-4 rounded-lg mt-4 text-center animate-fade-in"
+                      p-4 rounded-lg mt-4 text-center animate-fade-in flex items-center justify-center gap-2"
           >
-            Message sent successfully!
+            <span className="flex-shrink-0">✓</span>
+            <span>Message sent successfully! I'll get back to you soon.</span>
+          </div>
+        )}
+
+        {error && (
+          <div
+            className="bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-400 
+                      p-4 rounded-lg mt-4 text-center animate-fade-in flex items-center justify-center gap-2"
+          >
+            <AlertCircle size={18} />
+            <span>{error}</span>
           </div>
         )}
       </form>
