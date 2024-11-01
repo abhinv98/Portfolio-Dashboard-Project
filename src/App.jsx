@@ -43,7 +43,7 @@ function App() {
     switch (selectedSection) {
       case "overview":
         return (
-          <div className="space-y-8 animate-fade-in">
+          <div className="space-y-6 animate-fade-in">
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
               <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
                 Overview
@@ -124,7 +124,7 @@ function App() {
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 relative theme-transition">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 relative">
         <div className="fixed top-4 right-4 z-50">
           <ThemeToggle />
         </div>
@@ -137,11 +137,18 @@ function App() {
         />
 
         <main
-          className={`transition-all duration-300 ease-in-out ${
-            isMenuOpen ? "md:ml-64" : "ml-0"
-          } p-8`}
+          className={`transition-all duration-300 ease-in-out
+                     ${isMenuOpen ? "ml-64" : "ml-20"} 
+                     pt-8 pb-16 px-6 md:px-8
+                     min-h-screen
+                     relative`}
         >
-          {renderSection()}
+          <div className="max-w-7xl mx-auto">
+            {/* Responsive Container for Content */}
+            <div className="rounded-lg transition-all duration-300">
+              {renderSection()}
+            </div>
+          </div>
         </main>
       </div>
     </ThemeProvider>
