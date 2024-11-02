@@ -4,21 +4,43 @@
 
 @layer base {
   :root {
-    /* Updated Light theme colors with better contrast */
-    --color-primary-50: 240 253 255; /* Lightest - for subtle backgrounds */
-    --color-primary-100: 224 242 254; /* Light - for backgrounds */
-    --color-primary-200: 186 230 253;
-    --color-primary-300: 125 211 252;
-    --color-primary-400: 56 189 248;
-    --color-primary-500: 14 165 233; /* Base color */
-    --color-primary-600: 2 132 199; /* Darker - good for text on light backgrounds */
-    --color-primary-700: 3 105 161;
-    --color-primary-800: 7 89 133;
-    --color-primary-900: 12 74 110; /* Darkest */
+    /* Modern light blue palette for light theme */
+    --color-primary-50: 240 249 255; /* Lightest sky blue */
+    --color-primary-100: 224 242 254; /* Very light sky */
+    --color-primary-200: 186 230 253; /* Light sky */
+    --color-primary-300: 125 211 252; /* Sky blue */
+    --color-primary-400: 56 189 248; /* Primary sky */
+    --color-primary-500: 14 165 233; /* Main brand color */
+    --color-primary-600: 2 132 199; /* Darker sky */
+    --color-primary-700: 3 105 161; /* Deep sky */
+    --color-primary-800: 7 89 133; /* Very deep sky */
+    --color-primary-900: 12 74 110; /* Darkest sky */
+
+    /* Adding accent colors for variety */
+    --color-accent-cyan: 34 211 238; /* Bright cyan */
+    --color-accent-blue: 59 130 246; /* Bright blue */
+    --color-accent-teal: 45 212 191; /* Teal accent */
+
+    /* Success, warning, error states */
+    --color-success: 34 197 94; /* Green */
+    --color-warning: 234 179 8; /* Yellow */
+    --color-error: 239 68 68; /* Red */
+
+    /* Neutral grays for text and backgrounds */
+    --color-gray-50: 249 250 251;
+    --color-gray-100: 243 244 246;
+    --color-gray-200: 229 231 235;
+    --color-gray-300: 209 213 219;
+    --color-gray-400: 156 163 175;
+    --color-gray-500: 107 114 128;
+    --color-gray-600: 75 85 99;
+    --color-gray-700: 55 65 81;
+    --color-gray-800: 31 41 55;
+    --color-gray-900: 17 24 39;
   }
 
   .dark {
-    /* Updated Dark theme colors with better contrast */
+    /* Dark theme - adjusted for better contrast */
     --color-primary-50: 12 74 110;
     --color-primary-100: 7 89 133;
     --color-primary-200: 3 105 161;
@@ -28,7 +50,17 @@
     --color-primary-600: 125 211 252;
     --color-primary-700: 186 230 253;
     --color-primary-800: 224 242 254;
-    --color-primary-900: 240 253 255;
+    --color-primary-900: 240 249 255;
+
+    /* Dark theme accent adjustments */
+    --color-accent-cyan: 34 211 238;
+    --color-accent-blue: 96 165 250;
+    --color-accent-teal: 45 212 191;
+
+    /* Adjusted for dark theme visibility */
+    --color-success: 34 197 94;
+    --color-warning: 234 179 8;
+    --color-error: 239 68 68;
   }
 }
 
@@ -36,14 +68,38 @@
   .theme-transition {
     @apply transition-colors duration-200;
   }
+
+  /* Custom utility classes for gradients */
+  .gradient-primary {
+    @apply bg-gradient-to-r from-primary-500 to-accent-blue;
+  }
+
+  .gradient-secondary {
+    @apply bg-gradient-to-r from-accent-cyan to-primary-500;
+  }
 }
 
 /* Dark mode adjustments */
 .dark body {
-  @apply bg-gray-900 text-white;
+  @apply bg-gray-900 text-gray-100;
 }
 
-/* Smooth transitions for theme changes */
+/* Smooth transitions */
 * {
   @apply transition-colors duration-200;
+}
+
+/* Additional utility classes for common patterns */
+@layer utilities {
+  .text-primary-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-accent-blue;
+  }
+
+  .bg-primary-gradient {
+    @apply bg-gradient-to-r from-primary-500 to-accent-blue;
+  }
+
+  .bg-secondary-gradient {
+    @apply bg-gradient-to-r from-accent-cyan to-primary-500;
+  }
 }
