@@ -1,101 +1,149 @@
-import React from "react";
-import { Code, Braces, Terminal } from "lucide-react";
+import React, { useMemo } from "react";
+import { Sparkles, Boxes, Layers, Gem } from "lucide-react";
 
-const Loading = () => {
+const LoadingScreen = ({ progress: externalProgress }) => {
+  const steps = useMemo(
+    () => [
+      { text: "Initializing Experience", Icon: Sparkles },
+      { text: "Loading Assets", Icon: Boxes },
+      { text: "Preparing Interface", Icon: Layers },
+      { text: "Final Touches", Icon: Gem },
+    ],
+    []
+  );
+
+  const currentStep = useMemo(() => {
+    if (externalProgress < 25) return 0;
+    if (externalProgress < 50) return 1;
+    if (externalProgress < 75) return 2;
+    return 3;
+  }, [externalProgress]);
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 via-gray-100 to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      {/* Background decorative elements */}
+    <div className="min-h-screen relative flex items-center justify-center bg-gradient-to-br from-gray-50 via-gray-100 to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 overflow-hidden">
+      {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-grid-primary-700/[0.05] bg-[size:60px_60px]" />
-        <div className="absolute h-full w-full">
-          {[...Array(6)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute transform -translate-x-1/2 -translate-y-1/2 animate-float"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${i * 0.5}s`,
-              }}
-            >
-              {i % 3 === 0 ? (
-                <Code className="w-12 h-12 text-primary-500/20" />
-              ) : i % 3 === 1 ? (
-                <Braces className="w-12 h-12 text-primary-500/20" />
-              ) : (
-                <Terminal className="w-12 h-12 text-primary-500/20" />
-              )}
-            </div>
-          ))}
+        <div className="absolute w-full h-full opacity-30 dark:opacity-20">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/20 rounded-full mix-blend-multiply filter blur-xl animate-blob" />
+          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000" />
+          <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-pink-500/20 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000" />
         </div>
       </div>
 
-      {/* Main loading content */}
-      <div className="relative z-10">
-        {/* Central loading animation */}
-        <div className="relative flex items-center justify-center">
-          {/* Outer rotating ring */}
-          <div className="absolute w-40 h-40 rounded-full border-4 border-dashed border-primary-300 dark:border-primary-700 animate-spin-slow" />
+      <div className="relative z-10 w-full max-w-md p-8">
+        {/* Main loading container */}
+        <div className="relative backdrop-blur-lg bg-white/10 dark:bg-gray-800/10 rounded-2xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-white/20">
+          {/* Loading animation */}
+          <div className="flex justify-center mb-12">
+            <div className="relative w-40 h-40">
+              {/* Dynamic rotating rings */}
+              {[...Array(3)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute inset-0 rounded-full border-2 border-primary-500/30 dark:border-primary-400/30"
+                  style={{
+                    animation: `spin ${6 + i * 2}s linear infinite ${i * 0.5}s`,
+                    transform: `rotateX(${60 + i * 15}deg) rotateY(${i * 10}deg)`,
+                  }}
+                />
+              ))}
 
-          {/* Middle pulsing circle */}
-          <div className="absolute w-32 h-32 rounded-full bg-primary-100 dark:bg-primary-900/50 animate-pulse-scale opacity-50" />
+              {/* Glowing center container */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="relative w-20 h-20">
+                  {/* Glowing background */}
+                  <div className="absolute inset-0 bg-primary-500/20 dark:bg-primary-400/20 rounded-xl blur-md" />
 
-          {/* Inner spinning circles */}
-          <div className="relative w-24 h-24">
-            {[...Array(3)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute inset-0 rounded-full border-4 border-primary-500 opacity-20 animate-spin-slow"
-                style={{
-                  animationDelay: `${i * -1}s`,
-                  transform: `scale(${1 + i * 0.2})`,
-                }}
-              />
-            ))}
-
-            {/* Center dot */}
-            <div className="absolute inset-0 m-auto w-4 h-4 rounded-full bg-primary-500 animate-pulse" />
+                  {/* Icon container */}
+                  <div className="relative w-full h-full bg-white dark:bg-gray-800 rounded-xl shadow-lg flex items-center justify-center transform transition-all duration-500 hover:scale-105">
+                    {React.createElement(steps[currentStep].Icon, {
+                      className:
+                        "w-10 h-10 text-primary-500 dark:text-primary-400 animate-pulse",
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* Loading text */}
-        <div className="mt-12 text-center">
-          <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-4 animate-fade-in">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-primary-700">
-              Portfolio
-            </span>
-          </h2>
+          {/* Loading content */}
+          <div className="space-y-8">
+            {/* Title and description */}
+            <div className="text-center space-y-2">
+              <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-500 via-purple-500 to-pink-500">
+                Portfolio
+              </h2>
+              <div className="h-6 flex items-center justify-center">
+                <p className="text-sm text-gray-600 dark:text-gray-300 transition-all duration-500 animate-pulse">
+                  {steps[currentStep].text}
+                </p>
+              </div>
+            </div>
 
-          {/* Loading progress dots */}
-          <div className="flex items-center justify-center gap-1.5 text-primary-500">
-            {[...Array(3)].map((_, i) => (
-              <div
-                key={i}
-                className="w-2 h-2 rounded-full bg-current animate-bounce"
-                style={{ animationDelay: `${i * 0.2}s` }}
-              />
-            ))}
-          </div>
-        </div>
+            {/* Progress indicator */}
+            <div className="space-y-3">
+              <div className="h-1.5 w-full bg-gray-200/50 dark:bg-gray-700/50 rounded-full overflow-hidden backdrop-blur-sm">
+                <div
+                  className="h-full rounded-full transition-all duration-300 relative overflow-hidden bg-gradient-to-r from-primary-500 via-purple-500 to-pink-500"
+                  style={{ width: `${externalProgress}%` }}
+                >
+                  <div className="absolute inset-0 bg-primary-400/30 animate-shimmer" />
+                </div>
+              </div>
 
-        {/* Progress bar */}
-        <div className="mt-8 relative">
-          <div className="w-48 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-            <div className="absolute inset-0 w-full rounded-full">
-              <div className="h-full w-full bg-gradient-to-r from-primary-500 to-primary-600 animate-progress rounded-full" />
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-600 dark:text-gray-400 font-medium">
+                  {Math.round(externalProgress)}%
+                </span>
+                <span className="text-primary-500 dark:text-primary-400 font-medium">
+                  {externalProgress === 100 ? "Complete!" : "Loading..."}
+                </span>
+              </div>
+            </div>
+
+            {/* Progress steps */}
+            <div className="flex justify-center gap-3">
+              {steps.map((_, index) => (
+                <div
+                  key={index}
+                  className={`
+                    w-2 h-2 rounded-full transition-all duration-500
+                    ${
+                      index === currentStep
+                        ? "bg-gradient-to-r from-primary-500 to-purple-500 scale-150"
+                        : index < currentStep
+                          ? "bg-primary-400 dark:bg-primary-500"
+                          : "bg-gray-300 dark:bg-gray-600"
+                    }
+                  `}
+                />
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Status text */}
-        <div className="mt-4 text-center">
-          <p className="text-sm text-gray-600 dark:text-gray-400 animate-pulse">
-            Preparing your experience...
-          </p>
-        </div>
+        {/* Completion overlay */}
+        {externalProgress === 100 && (
+          <div
+            className="absolute inset-0 flex items-center justify-center backdrop-blur-sm bg-white/30 dark:bg-gray-900/30 rounded-2xl transition-all duration-500"
+            style={{
+              animation: "fadeIn 0.5s ease-out",
+            }}
+          >
+            <div className="text-center transform transition-all duration-500 scale-110">
+              <Sparkles className="w-12 h-12 text-primary-500 dark:text-primary-400 mx-auto mb-4 animate-pulse" />
+              <h3 className="text-2xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-primary-500 via-purple-500 to-pink-500 mb-2">
+                Welcome!
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Launching your experience...
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default Loading;
+export default LoadingScreen;

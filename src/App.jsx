@@ -13,7 +13,39 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const [selectedSection, setSelectedSection] = useState("overview");
   const [isLoading, setIsLoading] = useState(true);
+  const [loadingProgress, setLoadingProgress] = useState(0);
 
+  // Handle loading state and progress
+  useEffect(() => {
+    let progressTimer;
+    let completionTimer;
+
+    if (isLoading) {
+      progressTimer = setInterval(() => {
+        setLoadingProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(progressTimer);
+            return 100;
+          }
+          return prev + 1;
+        });
+      }, 30);
+    }
+
+    // Only set isLoading to false after reaching 100% and a small delay
+    if (loadingProgress === 100) {
+      completionTimer = setTimeout(() => {
+        setIsLoading(false);
+      }, 500); // Short delay after reaching 100%
+    }
+
+    return () => {
+      if (progressTimer) clearInterval(progressTimer);
+      if (completionTimer) clearTimeout(completionTimer);
+    };
+  }, [isLoading, loadingProgress]);
+
+  // Handle window resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
@@ -28,22 +60,11 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
   const renderSection = () => {
     switch (selectedSection) {
       case "overview":
         return (
-          <div className="space-y-6 animate-fade-in">
+          <div className="space-y-8 animate-fade-in">
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
               <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
                 Overview
@@ -122,9 +143,15 @@ function App() {
     }
   };
 
+  if (isLoading || loadingProgress < 100) {
+    return (
+      <Loading onProgress={setLoadingProgress} progress={loadingProgress} />
+    );
+  }
+
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 relative">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 relative theme-transition">
         <div className="fixed top-4 right-4 z-50">
           <ThemeToggle />
         </div>
@@ -137,18 +164,11 @@ function App() {
         />
 
         <main
-          className={`transition-all duration-300 ease-in-out
-                     ${isMenuOpen ? "ml-64" : "ml-20"} 
-                     pt-8 pb-16 px-6 md:px-8
-                     min-h-screen
-                     relative`}
+          className={`transition-all duration-300 ease-in-out ${
+            isMenuOpen ? "md:ml-64" : "ml-0"
+          } p-8`}
         >
-          <div className="max-w-7xl mx-auto">
-            {/* Responsive Container for Content */}
-            <div className="rounded-lg transition-all duration-300">
-              {renderSection()}
-            </div>
-          </div>
+          {renderSection()}
         </main>
       </div>
     </ThemeProvider>
