@@ -32,11 +32,10 @@ function App() {
       }, 30);
     }
 
-    // Only set isLoading to false after reaching 100% and a small delay
     if (loadingProgress === 100) {
       completionTimer = setTimeout(() => {
         setIsLoading(false);
-      }, 500); // Short delay after reaching 100%
+      }, 500);
     }
 
     return () => {
@@ -61,11 +60,16 @@ function App() {
   }, []);
 
   const renderSection = () => {
+    const contentClasses =
+      "space-y-8 animate-fade-in transition-all duration-300";
+    const containerClasses =
+      "bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm transition-all duration-300";
+
     switch (selectedSection) {
       case "overview":
         return (
-          <div className="space-y-8 animate-fade-in">
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+          <div className={contentClasses}>
+            <div className={containerClasses}>
               <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
                 Overview
               </h2>
@@ -95,7 +99,7 @@ function App() {
 
       case "skills":
         return (
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+          <div className={containerClasses}>
             <div className="animate-fade-in">
               <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
                 Skills & Expertise
@@ -111,7 +115,7 @@ function App() {
 
       case "projects":
         return (
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+          <div className={containerClasses}>
             <div className="animate-fade-in">
               <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
                 Projects
@@ -133,7 +137,7 @@ function App() {
 
       case "contact":
         return (
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+          <div className={containerClasses}>
             <Contact />
           </div>
         );
@@ -152,10 +156,12 @@ function App() {
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 relative theme-transition">
+        {/* Theme Toggle */}
         <div className="fixed top-4 right-4 z-50">
           <ThemeToggle />
         </div>
 
+        {/* Sidebar */}
         <Sidebar
           isMenuOpen={isMenuOpen}
           setIsMenuOpen={setIsMenuOpen}
@@ -163,13 +169,37 @@ function App() {
           setSelectedSection={setSelectedSection}
         />
 
+        {/* Main Content */}
         <main
-          className={`transition-all duration-300 ease-in-out ${
-            isMenuOpen ? "md:ml-64" : "ml-0"
-          } p-8`}
+          className={`
+            transition-all duration-300 ease-in-out 
+            ${isMenuOpen ? "md:ml-64" : "md:ml-20"} 
+            w-full 
+            p-4 sm:p-6 md:p-8
+            ${isMenuOpen ? "max-w-[calc(100%-16rem)]" : "max-w-[calc(100%-5rem)]"}
+            ml-0 md:ml-auto
+          `}
         >
-          {renderSection()}
+          <div
+            className={`
+            max-w-7xl 
+            mx-auto 
+            transition-all 
+            duration-300
+            ${isMenuOpen ? "container-expanded" : "container-collapsed"}
+          `}
+          >
+            {renderSection()}
+          </div>
         </main>
+
+        {/* Mobile Overlay */}
+        {isMenuOpen && (
+          <div
+            className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-20"
+            onClick={() => setIsMenuOpen(false)}
+          />
+        )}
       </div>
     </ThemeProvider>
   );
