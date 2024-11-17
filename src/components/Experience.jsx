@@ -7,7 +7,11 @@ import {
   MapPin,
   ExternalLink,
   Award,
+  BookOpen,
+  CheckCircle2,
+  Link,
 } from "lucide-react";
+import { portfolioData } from "../data/portfolioData";
 
 const Experience = () => {
   const professionalExperience = [
@@ -66,7 +70,6 @@ const Experience = () => {
     {
       degree: "B.Tech in Computer Engineering",
       institution: "Pillai College of Engineering",
-      // duration: "Graduated May 2023",
       grade: "CGPA – 7.35",
       location: "Navi Mumbai, MH, India",
       courses: [
@@ -272,10 +275,6 @@ const Experience = () => {
                   <MapPin size={16} className="mr-1" />
                   {edu.location}
                 </div>
-                <div className="flex items-center">
-                  <Calendar size={16} className="mr-1" />
-                  {edu.duration}
-                </div>
               </div>
 
               <div className="mb-4">
@@ -321,6 +320,85 @@ const Experience = () => {
                   </ul>
                 </div>
               </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Certifications Section */}
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+          <BookOpen className="mr-2" size={24} />
+          Certifications & Training
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {portfolioData.certifications.map((cert, index) => (
+            <div
+              key={index}
+              className="group bg-gray-50 dark:bg-gray-700/50 rounded-lg p-6 
+                         hover:shadow-lg transition-all duration-300 relative
+                         border border-transparent hover:border-primary-200 dark:hover:border-primary-800"
+            >
+              {/* Certificate Status Indicator */}
+              <div className="absolute top-4 right-4">
+                <CheckCircle2 
+                  className="w-5 h-5 text-green-500 dark:text-green-400" 
+                />
+              </div>
+
+              {/* Certificate Title & Provider */}
+              <div className="mb-4">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white 
+                             group-hover:text-primary-600 dark:group-hover:text-primary-400
+                             transition-colors">
+                  {cert.name}
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                  <span className="inline-flex items-center">
+                    <Building size={14} className="mr-1.5" />
+                    {cert.provider}
+                  </span>
+                </p>
+              </div>
+
+              {/* Topics/Skills */}
+              <div className="space-y-3">
+                <div className="flex flex-wrap gap-2">
+                  {cert.topics.map((topic, topicIndex) => (
+                    <span
+                      key={topicIndex}
+                      className="px-2.5 py-1 bg-primary-50 dark:bg-primary-900/20
+                               text-primary-600 dark:text-primary-400 rounded-full text-xs
+                               font-medium"
+                    >
+                      {topic}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Certificate Link */}
+              {cert.link && cert.link !== "#" && (
+                <a
+                  href={cert.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center text-sm text-primary-600 
+                           dark:text-primary-400 hover:text-primary-700 
+                           dark:hover:text-primary-300 transition-colors"
+                >
+                  <Link size={14} className="mr-1.5" />
+                  View Certificate
+                  <ExternalLink size={12} className="ml-1" />
+                </a>
+              )}
+
+              {/* Hover Effect Decoration */}
+              <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r 
+                            from-primary-500 to-primary-600 transform scale-x-0 
+                            group-hover:scale-x-100 transition-transform 
+                            duration-300 rounded-b-lg" />
             </div>
           ))}
         </div>
